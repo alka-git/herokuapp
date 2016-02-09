@@ -1,0 +1,42 @@
+{
+  "name": "npmbuilder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "mkdir": "node_modules/.bin/mkdirp dist/assets/styles/ dist/assets/js/",
+    "dev": "npm-run-all dev:sass:compile --parallel dev:sass:watch dev:server",
+    "dev:sass:compile": "compass compile --sass-dir='./client/assets/styles'  --css-dir='./client/assets/styles/'",
+    "dev:sass:watch": "compass watch --sass-dir='./client/assets/styles'  --css-dir='./client/assets/styles/'",
+    "dev:server": "cross-env NODE_ENV=development node server/server.js",
+    "prod": "npm-run-all clean mkdir prod:sass:compile prod:templates:compile prod:templates:replace prod:usemin prod:insert:templates prod:hashcat prod:clean:dist",
+    "prodrun": "npm-run-all clean mkdir prod:sass:compile prod:templates:compile prod:templates:replace prod:usemin prod:insert:templates prod:hashcat prod:clean:dist prod:server",
+    "prod:server": "cross-env NODE_ENV=production node server/server.js",
+    "prod:sass:compile": "compass compile --sass-dir='./client/assets/styles'  --css-dir='./client/assets/styles/'",
+    "prod:templates:compile": "npm-html2js -i client/app/**/templates/**/*.html -o dist/templates.js -m NPMBUILDER -b client",
+    "prod:templates:replace": "node_modules/.bin/replace \"\\,\\ \\[\\]\\)\" \")\" dist/templates.js",
+    "prod:usemin": "usemin client/index.html --dest dist --output dist/index.html",
+    "prod:insert:templates": "node_modules/.bin/replace \"\\<\\!--\\ \\#templates\\ --\\>\" \"<script src='\/templates.js'></script>\" dist/index.html",
+    "prod:hashcat": "hashcat dist/index.html dist/index.html",
+    "prod:clean:dist": "rimraf ./dist/app.js ./dist/templates.js ./dist/assets/js/libs.js ./dist/assets/styles/main.css"
+  },
+  "author": "AlKa",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cors": "^2.7.1",
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "cross-env": "^1.0.7",
+    "hashcat": "^0.3.1",
+    "mkdirp": "^0.5.1",
+    "npm-html2js": "^0.1.8",
+    "npm-run-all": "^1.5.1",
+    "replace": "^0.3.0",
+    "rimraf": "^2.5.1",
+    "usemin-cli": "0.0.7",
+    "watchify": "^3.7.0"
+  }
+}

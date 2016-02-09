@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="NPMBUILDER">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>NPMBUILDER</title>
+
+		<!-- #cat /assets/styles/main.css -->
+		<!-- build:css /assets/styles/main.css -->
+		<link rel="stylesheet" href="/assets/styles/main.css" />
+		<!-- endbuild -->
+		<!-- endcat -->
+
+	</head>
+
+	<body  layout="column" ng-controller="AppCntrl">
+
+		<header>
+			NPMBUILDER
+		</header>
+
+		<ui-view class="fadeZoom"></ui-view>
+
+		<!-- #cat /assets/js/libs.js -->
+		<!-- build:js /assets/js/libs.js -->
+		<script src="/bower_components/angular/angular.js"></script>
+		<script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+		<!-- endbuild -->
+		<!-- endcat -->
+
+		<!-- #cat /app.js -->
+		<!-- build:js /app.js -->
+		<script src="app/app.js"></script>
+		<script src="app/dashboard/controllers/dashboard.js"></script>
+		<!-- endbuild -->	
+		<!-- endcat -->
+		
+		<!-- #cat /templates.js -->
+		<!-- #templates -->
+		<!-- endcat -->
+
+	</body>
+</html>
